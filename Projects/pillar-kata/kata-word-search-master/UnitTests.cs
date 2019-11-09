@@ -1,4 +1,5 @@
 using Xunit;
+using System;
 using System.IO;
 using System.Xml;
 using WordSearchNamespace;
@@ -31,6 +32,14 @@ public class UnitTests
         WordSearch wordSearch = new WordSearch();
         wordSearch.xmlNode = wordSearch.wordSearchDoc.SelectSingleNode("pre").FirstChild;
         Assert.True(wordSearch.xmlNode.InnerText != null);
+    }
+    [Fact]
+    public void CanBuildSearchList()
+    {
+        WordSearch wordSearch = new WordSearch();
+        wordSearch.xmlNode = wordSearch.wordSearchDoc.SelectSingleNode("pre").FirstChild;
+        wordSearch.ReadFileOutput(wordSearch.xmlNode);
+        Assert.True(!String.IsNullOrEmpty(wordSearch.wordsToSearch));
     }
 
 }

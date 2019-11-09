@@ -33,34 +33,8 @@ class Program
             return;
         }
         wordSearch.xmlNode = wordSearch.wordSearchDoc.SelectSingleNode("pre").FirstChild;
-
-        if (wordSearch.xmlNode != null)
-        {
-            using (StringReader reader = new StringReader(wordSearch.xmlNode.InnerText))
-            {
-                string wordsToSearch = String.Empty;
-                bool isFirstLine = true;
-                string line = String.Empty;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    if (line.Length > 0)
-                    {
-                        if (isFirstLine)
-                        {
-                            wordsToSearch = line;
-                            isFirstLine = false;
-                        }
-                        else
-                        {
-
-                        }
-                        Console.WriteLine(line);
-                    }
-                }
-            }
-
-
-        }
+        
+        wordSearch.ReadFileOutput(wordSearch.xmlNode);
 
     }
 }

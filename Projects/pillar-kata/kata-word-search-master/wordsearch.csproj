@@ -15,5 +15,6 @@
     </Content>
     <Content Include="UnitTests.cs" />
     <Content Include="Program.cs" />
+    <Content Include="WordSearch.cs" />
   </ItemGroup>
 </Project>
