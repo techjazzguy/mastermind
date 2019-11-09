@@ -1,32 +1,36 @@
 using Xunit;
 using System.IO;
 using System.Xml;
+using WordSearchNamespace;
 
-    public class UnitTests
+public class UnitTests
+{
+    [Fact]
+    public void InputFileExists()
     {
-        [Fact]
-        public void InputFileExists()
-        { 
-           Assert.True(File.Exists(Program.wordSearchDocPath));
-        }
-        [Fact]
-        public void InputFileIsNotEmpty()
-        { 
-           FileInfo fi = new FileInfo(Program.wordSearchDocPath);
-           Assert.True(fi.Length > 0);
-        }
-         [Fact]
-        public void CanLoadInputFile()
-        {
-          XmlDocument wordSearchDoc = new XmlDocument();
-          Program.wordSearchDoc.Load(Program.wordSearchDocPath);
-        }
-        [Fact]
-        public void InputFileContainsPreformattedText()
-        { 
-           Program.xmlNode = Program.wordSearchDoc.SelectSingleNode("pre").FirstChild;
-           Assert.True(Program.xmlNode.InnerText != null);
-        }
-        
+        WordSearch wordSearch = new WordSearch();
+        Assert.True(File.Exists(wordSearch.wordSearchDocPath));
     }
- 
+    [Fact]
+    public void InputFileIsNotEmpty()
+    {
+        WordSearch wordSearch = new WordSearch();
+        FileInfo fi = new FileInfo(wordSearch.wordSearchDocPath);
+        Assert.True(fi.Length > 0);
+    }
+    [Fact]
+    public void CanLoadInputFile()
+    {
+        WordSearch wordSearch = new WordSearch();
+        XmlDocument wordSearchDoc = new XmlDocument();
+        wordSearch.wordSearchDoc.Load(wordSearch.wordSearchDocPath);
+    }
+    [Fact]
+    public void InputFileContainsPreformattedText()
+    {
+        WordSearch wordSearch = new WordSearch();
+        wordSearch.xmlNode = wordSearch.wordSearchDoc.SelectSingleNode("pre").FirstChild;
+        Assert.True(wordSearch.xmlNode.InnerText != null);
+    }
+
+}

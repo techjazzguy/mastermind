@@ -1,46 +1,66 @@
 ﻿using System;
 using System.IO;
 using System.Xml;
+using WordSearchNamespace;
 
-    class Program
+class Program
+{
+
+    static void Main(string[] args)
     {
-          public static XmlDocument wordSearchDoc = new XmlDocument();
-          public static XmlNode xmlNode;
-          public static string wordSearchDocPath = "/Users/eric/Documents/git/Projects/pillar-kata/kata-word-search-master/bin/Debug/netcoreapp3.0/wordsearch.xml";
-        static void Main(string[] args)
+        WordSearch wordSearch = new WordSearch();
+
+        //Check if file exists.
+        if (!File.Exists(wordSearch.wordSearchDocPath))
         {
-            
-            //Check if file exists.
-            if (!File.Exists(Program.wordSearchDocPath))
-            {
-                Console.WriteLine("Input file must exist.");
-                return;
-            }
+            Console.WriteLine("Input file must exist.");
+            return;
+        }
 
-            try
-            {
-                Program.wordSearchDoc.Load(Program.wordSearchDocPath);
-            }
-            catch
-            {
-                Console.WriteLine("An error occurred while loading the word search file.");
-                return;
-            }
+        try
+        {
+            wordSearch.wordSearchDoc.Load(wordSearch.wordSearchDocPath);
+        }
+        catch
+        {
+            Console.WriteLine("An error occurred while loading the word search file.");
+            return;
+        }
 
-            if (Program.wordSearchDoc.InnerText.Length == 0)
-            {
-                Console.WriteLine("Input file is empty.");
-                return;
-            }
-            Program.xmlNode = wordSearchDoc.SelectSingleNode("pre").FirstChild;
+        if (wordSearch.wordSearchDoc.InnerText.Length == 0)
+        {
+            Console.WriteLine("Input file is empty.");
+            return;
+        }
+        wordSearch.xmlNode = wordSearch.wordSearchDoc.SelectSingleNode("pre").FirstChild;
 
-                using (StringReader reader = new StringReader(Program.xmlNode.InnerText))
+        if (wordSearch.xmlNode != null)
+        {
+            using (StringReader reader = new StringReader(wordSearch.xmlNode.InnerText))
+            {
+                string wordsToSearch = String.Empty;
+                bool isFirstLine = true;
+                string line = String.Empty;
+                while ((line = reader.ReadLine()) != null)
                 {
-                    string line;
-                    while (( line = reader.ReadLine()) != null)
+                    if (line.Length > 0)
                     {
-                        Console.WriteLine("Test " + line);
+                        if (isFirstLine)
+                        {
+                            wordsToSearch = line;
+                            isFirstLine = false;
+                        }
+                        else
+                        {
+
+                        }
+                        Console.WriteLine(line);
                     }
                 }
-}
+            }
+
+
+        }
+
     }
+}
