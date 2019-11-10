@@ -2,6 +2,7 @@ using Xunit;
 using System;
 using System.IO;
 using System.Xml;
+using System.Text.RegularExpressions;
 using WordSearchNamespace;
 
 public class UnitTests
@@ -30,16 +31,29 @@ public class UnitTests
     public void InputFileContainsPreformattedText()
     {
         WordSearch wordSearch = new WordSearch();
+        wordSearch.wordSearchDoc.Load(wordSearch.wordSearchDocPath);
         wordSearch.xmlNode = wordSearch.wordSearchDoc.SelectSingleNode("pre").FirstChild;
-        Assert.True(wordSearch.xmlNode.InnerText != null);
+      Assert.True(wordSearch.xmlNode.InnerText != null);
     }
     [Fact]
-    public void CanBuildSearchList()
+    public void InputFileSearchListExists()
     {
         WordSearch wordSearch = new WordSearch();
+        wordSearch.wordSearchDoc.Load(wordSearch.wordSearchDocPath);
         wordSearch.xmlNode = wordSearch.wordSearchDoc.SelectSingleNode("pre").FirstChild;
         wordSearch.ReadFileOutput(wordSearch.xmlNode);
-        Assert.True(!String.IsNullOrEmpty(wordSearch.wordsToSearch));
+       Assert.True(!String.IsNullOrEmpty(wordSearch.wordsToSearch));
+    }
+    [Fact]
+    public void SearchLineIsCommaSeparated()
+    {
+       var regex = "[a-z],[a-z]";
+        Match match = Regex.Match("U,M,K,H,U,L,K,I,N,V,J,O,C,W,E", regex ,RegexOptions.IgnoreCase);
+      if (!match.Success)
+        {
+            Console.WriteLine("Word search lines must be comma-separated.");
+         }
+       Assert.True(match.Success);
     }
 
 }

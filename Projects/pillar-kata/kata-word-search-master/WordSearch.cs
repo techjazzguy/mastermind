@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Xml;
+using System.Text.RegularExpressions;
 
 namespace WordSearchNamespace
 {
@@ -21,6 +22,7 @@ namespace WordSearchNamespace
             {
                 bool isFirstLine = true;
                 string line = String.Empty;
+                var regex = "[a-z],[a-z]";
                 while ((line = reader.ReadLine()) != null)
                 {
                     if (line.Length > 0)
@@ -32,7 +34,11 @@ namespace WordSearchNamespace
                         }
                         else
                         {
-
+                            Match match = Regex.Match(line, regex ,RegexOptions.IgnoreCase);
+                            if (!match.Success)
+                            {
+                               Console.WriteLine("Word search lines must be comma-separated.");
+                            }
                         }
                         Console.WriteLine(line);
                     }
