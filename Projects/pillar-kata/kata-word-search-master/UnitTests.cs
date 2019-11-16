@@ -4,7 +4,7 @@ using System.IO;
 using System.Xml;
 using System.Text.RegularExpressions;
 using WordSearchNamespace;
-
+using System.Reflection;
 public class UnitTests
 {
     [Fact]
@@ -54,6 +54,30 @@ public class UnitTests
             Console.WriteLine("Word search lines must be comma-separated.");
          }
        Assert.True(match.Success);
+    }
+
+    [Fact]
+    public void SearchGridHasSameNumOfRowsAndColumns()
+    {
+       char [,] arrayChars = new char [1, 2];
+               Console.WriteLine("Long Length: " + arrayChars.GetLongLength(0));
+                  Assert.True(true);
+    }
+
+    public bool SearchForWord()
+    {
+      string word = "UHURA";
+      foreach (char letter in word)
+      {
+        
+      }
+      return true;
+    }
+[Fact]
+    public void SearchForLetter()
+    {
+      string directory = (Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+      Console.WriteLine("Here is: " + Path.Combine(directory, "wordsearch.xml"));
     }
 
 }

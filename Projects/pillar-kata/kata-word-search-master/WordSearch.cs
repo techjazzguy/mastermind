@@ -2,20 +2,24 @@ using System;
 using System.IO;
 using System.Xml;
 using System.Text.RegularExpressions;
+using System.Reflection;
 
 namespace WordSearchNamespace
 {
     public class WordSearch 
     {
-        public string wordSearchDocPath = 
-           "/Users/eric/Documents/git/Projects/pillar-kata/kata-word-search-master/bin/Debug/netcoreapp3.0/wordsearch.xml";
+       public string wordSearchDocPath = Path.Combine(
+           Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), 
+           "wordsearch.xml");
+
            public XmlDocument wordSearchDoc = new XmlDocument();
            public XmlNode xmlNode;
            public string wordsToSearch = String.Empty;
-        
+
         public string ReadFileOutput(XmlNode searchNode)
         {
              if (this.xmlNode != null)
+             
         {
             
             using (StringReader reader = new StringReader(xmlNode.InnerText))
@@ -23,6 +27,7 @@ namespace WordSearchNamespace
                 bool isFirstLine = true;
                 string line = String.Empty;
                 var regex = "[a-z],[a-z]";
+              
                 while ((line = reader.ReadLine()) != null)
                 {
                     if (line.Length > 0)
@@ -40,9 +45,10 @@ namespace WordSearchNamespace
                                Console.WriteLine("Word search lines must be comma-separated.");
                             }
                         }
-                        Console.WriteLine(line);
                     }
+                    Console.WriteLine(line);
                 }
+                
             }
 
 
