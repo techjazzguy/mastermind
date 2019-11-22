@@ -6,54 +6,62 @@ using System.Reflection;
 
 namespace WordSearchNamespace
 {
-    public class WordSearch 
+    public class WordSearch
     {
-       public string wordSearchDocPath = Path.Combine(
-           Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), 
-           "wordsearch.xml");
+        public string wordSearchDocPath = Path.Combine(
+            Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+            "wordsearch.xml");
 
-           public XmlDocument wordSearchDoc = new XmlDocument();
-           public XmlNode xmlNode;
-           public string wordsToSearch = String.Empty;
+        public XmlDocument wordSearchDoc = new XmlDocument();
+        public XmlNode xmlNode;
+        public string wordsToSearch = String.Empty;
+
+        public char [] searchGrid;
 
         public string ReadFileOutput(XmlNode searchNode)
         {
-             if (this.xmlNode != null)
-             
-        {
-            
-            using (StringReader reader = new StringReader(xmlNode.InnerText))
+            if (this.xmlNode != null)
+
             {
-                bool isFirstLine = true;
-                string line = String.Empty;
-                var regex = "[a-z],[a-z]";
-              
-                while ((line = reader.ReadLine()) != null)
+
+                using (StringReader reader = new StringReader(xmlNode.InnerText))
                 {
-                    if (line.Length > 0)
+                    bool isFirstLine = true;
+                    string line = String.Empty;
+                    var regex = "[a-z],[a-z]";
+
+                    while ((line = reader.ReadLine()) != null)
                     {
-                        if (isFirstLine)
+                        if (line.Length > 0)
                         {
-                            this.wordsToSearch = line;
-                            isFirstLine = false;
-                        }
-                        else
-                        {
-                            Match match = Regex.Match(line, regex ,RegexOptions.IgnoreCase);
-                            if (!match.Success)
+                            if (isFirstLine)
                             {
-                               Console.WriteLine("Word search lines must be comma-separated.");
+                                this.wordsToSearch = line;
+                                isFirstLine = false;
+                            }
+                            else
+                            {
+                                Match match = Regex.Match(line, regex, RegexOptions.IgnoreCase);
+                                if (!match.Success)
+                                {
+                                    Console.WriteLine("Word search lines must be comma-separated.");
+                                }
                             }
                         }
+                        Console.WriteLine(line);
                     }
-                    Console.WriteLine(line);
+
                 }
-                
+
+
             }
-
-
-        }
+            this.searchGrid = xmlNode.InnerText.ToCharArray();
             return this.wordsToSearch;
+        }
+
+        public void searchWord()
+        {
+
         }
 
     }
