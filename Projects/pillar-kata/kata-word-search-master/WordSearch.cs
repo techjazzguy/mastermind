@@ -59,10 +59,6 @@ namespace WordSearchNamespace
             return this.wordsToSearch;
         }
 
-        public void searchWord()
-        {
-
-        }
 
     }
 }
