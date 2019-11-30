@@ -107,7 +107,7 @@ namespace MastermindNamespace
                 {
                     if (guess[i].Equals(sb[i]))
                     {
-                        sb = sb.Replace(sb[i], 'x', i, 1);
+                        sb = sb.Replace(sb[i], '+', i, 1);
                     }
                 }
             }
